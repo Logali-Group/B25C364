@@ -1,7 +1,6 @@
 import Controller from "sap/ui/core/mvc/Controller";
-import MessageToast from "sap/m/MessageToast";
-import ResourceModel from "sap/ui/model/resource/ResourceModel";
-import ResourceBundle from "sap/base/i18n/ResourceBundle";
+import JSONModel from "sap/ui/model/json/JSONModel";
+import Component from "../Component";
 
 /**
  * @namespace com.logaligroup.invoices.controller
@@ -9,10 +8,28 @@ import ResourceBundle from "sap/base/i18n/ResourceBundle";
 
 export default class Main extends Controller {
 
-    public onShowMessage () : void  {
-        const model = this.getView()?.getModel("i18n") as ResourceModel;
-        const resourceBundle = model.getResourceBundle() as ResourceBundle;
-        MessageToast.show(resourceBundle.getText("hello") || 'no text defined');
+    public onInit() : void | undefined {
+        this.viewModel();
+    }
+
+    private viewModel () : void {
+        const data = {
+            recipient: {
+                name: "World",
+                // details:[
+                //     {
+                //         name:"Jorge"
+                //     }
+                // ]
+            }
+        }
+        const model = new JSONModel(data) ;
+        this.getView()?.setModel(model, "view");
+    }
+
+
+    public onOpenDialog () : void {
+        (this.getOwnerComponent() as Component).openDialog();
     }
 
 }

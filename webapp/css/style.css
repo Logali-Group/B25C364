@@ -1,1 +1,6 @@
 /* Enter your custom styles here */
+
+.myFormatText {
+    margin-top: 7px;
+    font-weight: bold;
+}

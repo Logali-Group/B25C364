@@ -10,20 +10,19 @@
                 <Toolbar>
                         <content>
                                 <Title text="{i18n>appTitle}"/>
+                                <ToolbarSpacer/>
+                                <Button
+                                        text="{i18n>helloDialogBut}"
+                                        press="onOpenDialog"
+                                        width="7rem"/>
                         </content>
                 </Toolbar>
         </customHeader>
         
         <content>
-
-                <Panel  headerText="{i18n>helloPanel}">
-                        <content>
-                                <Button
-                                        text="{i18n>showHelloButtonText}"
-                                        press="onShowMessage"/> 
-                        </content>
-                </Panel>
-
+                <mvc:XMLView id="helloPanel"
+                        viewName="com.logaligroup.invoices.view.HelloPanel"
+                        type="XML"/>
         </content>
 
     </Page>
