@@ -17,6 +17,9 @@ export default class HelloDialog extends ManagedObject {
 
     constructor (view: View | Control) {
         super()
+        if (!view) {
+            throw new Error("Se requiere una instancia de Vista o Control para HelloDialog.");
+        }
         this.view = view;
     }
 
@@ -24,22 +27,18 @@ export default class HelloDialog extends ManagedObject {
         delete this.view;
     }
 
+    public onCancelPress(): void {
+        this.dialog?.close();
+    }
+
     public async open () : Promise<void> {
 
         const view = this.view as View;
-        console.log(view);
-
-        const oController = {
-            onCancelPress : function () {
-                console.log(view?.byId("helloDialog"));
-                (view?.byId("helloDialog") as Dialog).close();
-            }
-        }
 
         this.dialog??= await Fragment.load({
             id: view?.getId(),
             name: "com.logaligroup.invoices.fragment.HelloDialog",
-            controller: oController
+            controller: this
         }) as Dialog;
 
         view?.addDependent(this.dialog);

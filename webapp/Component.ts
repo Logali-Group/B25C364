@@ -1,6 +1,7 @@
 import BaseComponent from "sap/ui/core/UIComponent";
 import { createDeviceModel } from "./model/models";
 import HelloDialog from "./controller/HelloDialog";
+import View from "sap/ui/core/mvc/View";
 
 /**
  * @namespace com.logaligroup.invoices
@@ -10,7 +11,10 @@ export default class Component extends BaseComponent {
     private helloDialog? : HelloDialog;
 
 	public static metadata = {
-		manifest: "json"
+		manifest: "json",
+        interfaces: [
+            "sap.ui.core.IAsyncContentCreation"
+        ]
 	};
 
 	public init() : void {
@@ -23,16 +27,29 @@ export default class Component extends BaseComponent {
         // enable routing
         this.getRouter().initialize();
 
-        // Load helloDialog
-        this.helloDialog = new HelloDialog(this.getRootControl());
 	}
 
     public exit () : void {
         this.helloDialog?.destroy();
         delete this.helloDialog;
+        super.exit();
     }
 
-    public openDialog () : void {
+    public async openDialog () : Promise<void> {
+
+        if (!this.helloDialog) {
+            try {
+                const rootView = await this.rootControlLoaded() as View;
+                if (rootView) {
+                    this.helloDialog = new HelloDialog(this.getRootControl());
+                } else {
+                    return
+                }
+            } catch (err) {
+                return;
+            }
+        }
+
         this.helloDialog?.open();
     }
 }
