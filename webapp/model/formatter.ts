@@ -10,9 +10,9 @@ export default {
         const resourceBundle = resourceModel.getResourceBundle() as ResourceBundle;
 
         switch (status) {
-            case 'A': return resourceBundle.getText("invoicesStatusA")
-            case 'B': return resourceBundle.getText("invoicesStatusB")
-            case 'C': return resourceBundle.getText("invoicesStatusC")
+            case 'A': return resourceBundle.getText("invoicesStatusA");
+            case 'B': return resourceBundle.getText("invoicesStatusB");
+            case 'C': return resourceBundle.getText("invoicesStatusC");
             default:  return status;
         }
     }
