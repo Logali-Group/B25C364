@@ -23,6 +23,9 @@
                 <mvc:XMLView id="helloPanel"
                         viewName="com.logaligroup.invoices.view.HelloPanel"
                         type="XML"/>
+                <mvc:XMLView id="invoiceLIst"
+                        viewName="com.logaligroup.invoices.view.InvoicesList"
+                        type="XML"/>
         </content>
 
     </Page>
