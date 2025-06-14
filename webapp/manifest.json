@@ -13,6 +13,16 @@
       "id": "@sap/generator-fiori:basic",
       "version": "1.17.5",
       "toolsId": "7027335e-1fa9-40ec-bab6-3955132d8fad"
+    },
+    "dataSources": {
+      "myNorthwind": {
+        "type": "OData",
+        "uri": "/v2/northwind/northwind.svc/",
+        "settings": {
+          "odataVersion": "2.0",
+          "localUri": "localService/metadata.xml"
+        }
+      }
     }
   },
   "sap.ui": {
@@ -54,6 +64,13 @@
       "invoices": {
         "type": "sap.ui.model.json.JSONModel",
         "uri": "model/Invoices.json"
+      },
+      "northwind": {
+        "preload": true,
+        "dataSource": "myNorthwind",
+        "settings": {
+          
+        }
       }
     },
     "resources": {
@@ -72,8 +89,7 @@
         "type": "View",
         "viewType": "XML",
         "path": "com.logaligroup.invoices.view",
-        "async": true,
-        "viewPath": "com.logaligroup.invoices.view"
+        "async": true
       },
       "routes": [
         {
@@ -82,12 +98,19 @@
           "target": [
             "TargetMain"
           ]
+        },
+        {
+          "name": "RouteDetail",
+          "pattern":"detail({path}):?query:",
+          "target": "TargetDetail"
         }
       ],
       "targets": {
         "TargetMain": {
-          "id": "Main",
           "name": "Main"
+        },
+        "TargetDetail": {
+          "name": "Detail"
         }
       }
     },

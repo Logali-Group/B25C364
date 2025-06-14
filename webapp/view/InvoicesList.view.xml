@@ -7,18 +7,46 @@
 
         <List   id="list"
                 headerText="{i18n>invoicesListTitle}"
+                growing="true"
+                growingScrollToLoad="true"
+                growingThreshold="50"
                 class="sapUiResponsiveMargin"
-                items="{invoices>/Invoices}"
+                items="{
+                    path: 'northwind>/Invoices',
+                    filters: [
+                        {
+                            path: 'ExtendedPrice',
+                            operator: 'BT',
+                            value1: '0.00',
+                            value2: '50.00'
+                        }
+                    ], 
+                    sorter: {
+                        path: 'ShipperName',
+                        group: true
+                    }
+                }"
                 width="auto">
+
+            <headerToolbar>
+                <Toolbar>
+                    <Title text="{i18n>invoicesListTitle}"/>
+                    <ToolbarSpacer/>
+                    <SearchField id="searchField" search="onFilterPress" 
+                                width="50%"/>
+                </Toolbar>
+            </headerToolbar>
 
             <items>
 
                 <ObjectListItem 
-                        intro="{invoices>Quantity}"
-                        title="{invoices>ProductName}"
+                        type="Navigation"
+                        press="onNavToDetail"
+                        intro="{northwind>Quantity}"
+                        title="{northwind>ProductName}"
                         number="{
                             parts: [
-                                'invoices>ExtendedPrice',
+                                'northwind>ExtendedPrice',
                                 'currency>/usd'
                             ],
                             type: 'sap.ui.model.type.Currency',
@@ -31,21 +59,21 @@
                             type: 'sap.ui.model.type.String'
                         }"
                         numberState="{=
-                            (${invoices>ExtendedPrice} >= 10.00 &amp;&amp; ${invoices>ExtendedPrice} &lt;= 19.99)? 'Warning' :
-                            (${invoices>ExtendedPrice} >= 00.00 &amp;&amp; ${invoices>ExtendedPrice} &lt;= 9.99)? 'Information' : 
-                            (${invoices>ExtendedPrice} >= 20.00 &amp;&amp; ${invoices>ExtendedPrice} &lt;= 39.99)? 'Success' : 'Error'
+                            (${northwind>ExtendedPrice} >= 10.00 &amp;&amp; ${northwind>ExtendedPrice} &lt;= 19.99)? 'Warning' :
+                            (${northwind>ExtendedPrice} >= 00.00 &amp;&amp; ${northwind>ExtendedPrice} &lt;= 9.99)? 'Information' : 
+                            (${northwind>ExtendedPrice} >= 20.00 &amp;&amp; ${northwind>ExtendedPrice} &lt;= 39.99)? 'Success' : 'Error'
                         }">
 
-                    <firstStatus>
+                    <!-- <firstStatus>
                         <ObjectStatus 
                             core:require="{
                                 MyFormatter: 'com/logaligroup/invoices/model/formatter'
                             }"
                             text="{
-                                path: 'invoices>Status',
+                                path: 'northwind>Status',
                                 formatter: 'MyFormatter.statusText.bind($controller)'
                             }"/>
-                    </firstStatus>
+                    </firstStatus> -->
 
                 </ObjectListItem>
             

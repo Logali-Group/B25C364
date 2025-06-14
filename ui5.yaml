@@ -15,6 +15,9 @@ server:
             - /resources
             - /test-resources
           url: https://ui5.sap.com
+        backend:
+          - path: /v2
+            destination: Northwind2 # Specifies the destination service for the application, in this case, 'Northwind2', which is typically used for accessing a sample OData service.
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
