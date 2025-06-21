@@ -2,6 +2,7 @@ import Controller from "sap/ui/core/mvc/Controller";
 import Component from "../Component";
 import { Route$PatternMatchedEvent } from "sap/ui/core/routing/Route";
 import View from "sap/ui/core/mvc/View";
+import History from "sap/ui/core/routing/History";
 
 /**
  * 
@@ -28,6 +29,19 @@ export default class Detail extends Controller {
             path: window.decodeURIComponent(path),
             model: 'northwind'
         });
+    }
+
+
+    public onNavToBack () : void {
+        const history = History.getInstance();
+        const previousHash = history.getPreviousHash();
+
+        if (previousHash !== undefined) {
+            window.history.go(-1);
+        } else {
+            const router = (this.getOwnerComponent() as Component).getRouter();
+            router.navTo("RouteMain");
+        }
     }
 
 }

@@ -4,7 +4,9 @@
             xmlns:mvc="sap.ui.core.mvc">
 
 
-    <Page title="{northwind>ProductName}">
+    <Page title="{northwind>ProductName}"
+            showNavButton="true"
+            navButtonPress="onNavToBack">
 
         <content>
 

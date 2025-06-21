@@ -16,7 +16,7 @@
       ],
       "args": [
         "--open",
-        "test/flp.html#comlogaligroupinvoices-display"
+        "test/flp.html#app-preview"
       ],
       "console": "internalConsole",
       "internalConsoleOptions": "openOnSessionStart",
@@ -44,7 +44,7 @@
         "--config",
         "./ui5-local.yaml",
         "--open",
-        "test/flpSandbox.html#comlogaligroupinvoices-display"
+        "test/flpSandbox.html#app-preview"
       ],
       "console": "internalConsole",
       "internalConsoleOptions": "openOnSessionStart",
