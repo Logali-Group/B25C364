@@ -1,0 +1,83 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Start employees",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/employees",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--open",
+        "test/flp.html#app-preview"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "env": {
+        "DEBUG": "--inspect",
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/B25C364-2/employees\"}"
+      }
+    },
+    {
+      "name": "Start employees Local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/employees",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-local.yaml",
+        "--open",
+        "test/flp.html#app-preview"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/B25C364-2/employees\"}"
+      }
+    },
+    {
+        "name": "Start Index",
+        "type": "node",
+        "request": "launch",
+        "cwd": "${workspaceFolder}/employees",
+        "runtimeExecutable": "npx",
+        "windows": {
+            "runtimeExecutable": "npx.cmd"
+        },
+        "runtimeArgs": [
+            "fiori",
+            "run"
+        ],
+        "args": [
+            "--open",
+            "index.html"
+        ],
+        "console": "internalConsole",
+        "internalConsoleOptions": "openOnSessionStart",
+        "outputCapture": "std",
+        "env": {
+            "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/B25C364-2/employees\"}",
+            "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false"
+        }
+    }
+  ]
+}

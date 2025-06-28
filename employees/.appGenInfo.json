@@ -1,0 +1,24 @@
+{
+  "generationParameters": {
+    "generationDate": "Sat Jun 28 2025 15:41:29 GMT+0000 (Coordinated Universal Time)",
+    "generatorPlatform": "SAP Business Application Studio",
+    "serviceType": "None",
+    "metadataFilename": "",
+    "serviceUrl": "N/A",
+    "appName": "employees",
+    "appTitle": "Employees",
+    "appDescription": "Employees",
+    "appNamespace": "com.logaligroup",
+    "ui5Theme": "sap_horizon",
+    "ui5Version": "1.136.2",
+    "enableCodeAssist": true,
+    "enableEslint": true,
+    "enableTypeScript": true,
+    "showMockDataInfo": false,
+    "generatorVersion": "1.18.1",
+    "template": "Basic",
+    "generatorName": "SAP Fiori Application Generator",
+    "entityRelatedConfig": [],
+    "launchText": "In order to launch the generated app, simply run the following from the generated app root folder:\n\n```\n    npm start\n```"
+  }
+}
