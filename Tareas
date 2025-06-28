@@ -1,0 +1,5 @@
+1. En el filtro de los paises necesitamos mostrar el código del país
+2. El filtro de los paises debe ser de multiple selección
+3. En el encabezado de la tabla del lado (izquierdo) debe aparecer un título: 
+Employees (45) pero si se aplica algún filtro dicho título debe ser actualizado
+4. Me ayudan a entender xlsx para TS --> Listo para la próxima
