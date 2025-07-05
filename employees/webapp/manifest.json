@@ -66,11 +66,6 @@
         {
           "uri": "css/style.css"
         }
-      ],
-      "js": [
-        {
-          "uri": "libs/sheets.js"
-        }
       ]
     },
     "routing": {
@@ -87,17 +82,34 @@
       },
       "routes": [
         {
-          "name": "RouteMain",
+          "name": "RouteMaster",
           "pattern": ":?query:",
+          "target": "TargetMaster"
+        },
+        {
+          "name": "RouteDetails",
+          "pattern": "Employees(ID={id}):?query:",
           "target": [
-            "TargetMain"
+            "TargetMaster",
+            "TargetDetails"
           ]
         }
       ],
       "targets": {
-        "TargetMain": {
-          "id": "Main",
-          "name": "Main"
+        "FCLContainer": {
+          "name": "Container"
+        } ,
+        "TargetMaster": {
+          "parent": "FCLContainer",
+          "controlAggregation": "beginColumnPages",
+          "controlId": "container",
+          "name": "Master"
+        },
+        "TargetDetails": {
+          "parent": "FCLContainer",
+          "controlAggregation": "midColumnPages",
+          "controlId": "container",
+          "name": "Details"
         }
       }
     },

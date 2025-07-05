@@ -1,0 +1,99 @@
+<mvc:View   
+            controllerName="com.logaligroup.employees.controller.Details"
+            xmlns="sap.m"
+            xmlns:uxap="sap.uxap"
+            xmlns:mvc="sap.ui.core.mvc">
+
+        <uxap:ObjectPageLayout>
+        
+            <uxap:headerTitle>
+
+                <uxap:ObjectPageDynamicHeaderTitle>
+                
+                    <uxap:expandedHeading>
+                        <Title text="{employees>FirstName}, {employees>LastName}" wrapping="true"/>
+                    </uxap:expandedHeading>
+
+                    <uxap:snappedHeading>
+                        <FlexBox>
+                            <Title text="{employees>FirstName}, {employees>LastName}" wrapping="true"/>
+                        </FlexBox>
+                    </uxap:snappedHeading>
+
+                    <uxap:expandedContent>
+                        <HBox
+                                alignItems="Center"
+                                justifyContent="SpaceBetween"
+                                height="100px">
+
+                            <HBox>
+                                <VBox>
+                                    <Label text="{i18n>country}" class="boldElement"/>
+                                    <Text text="{employees>Country}"/>
+                                </VBox>
+                            </HBox>
+
+                            <HBox>
+                                <VBox>
+                                    <Label text="{i18n>city}" class="boldElement"/>
+                                    <Text text="{employees>City}"/>
+                                </VBox>
+                            </HBox>
+
+                            <HBox>
+                                <VBox>
+                                    <Label text="{i18n>postalCode}" class="boldElement"/>
+                                    <Text text="{employees>PostalCode}"/>
+                                </VBox>
+                            </HBox>
+
+                        </HBox>
+                    </uxap:expandedContent>
+
+                    <uxap:snappedContent>
+                        <HBox
+                                alignItems="Center"
+                                justifyContent="SpaceBetween"
+                                height="100px">
+
+                            <HBox>
+                                <VBox>
+                                    <Label text="{i18n>country}" class="boldElement"/>
+                                    <Text text="{employees>Country}"/>
+                                </VBox>
+                            </HBox>
+
+                            <HBox>
+                                <VBox>
+                                    <Label text="{i18n>city}" class="boldElement"/>
+                                    <Text text="{employees>City}"/>
+                                </VBox>
+                            </HBox>
+
+                            <HBox>
+                                <VBox>
+                                    <Label text="{i18n>postalCode}" class="boldElement"/>
+                                    <Text text="{employees>PostalCode}"/>
+                                </VBox>
+                            </HBox>
+
+                        </HBox>
+                    </uxap:snappedContent>
+
+                    <uxap:actions>
+
+                        <Button
+                                icon="sap-icon://decline"
+                                press="onClosePress"
+                                type="Reject"/>
+                    
+                    </uxap:actions>
+                
+                </uxap:ObjectPageDynamicHeaderTitle>
+            
+            </uxap:headerTitle>
+        
+        </uxap:ObjectPageLayout>
+
+
+</mvc:View>

@@ -8,19 +8,20 @@ import FilterOperator from "sap/ui/model/FilterOperator";
 import Filter from "sap/ui/model/Filter";
 import Table from "sap/m/Table";
 import ListBinding from "sap/ui/model/ListBinding";
-import { read, writeFileXLSX } from "xlsx";
 import * as XLSX from 'xlsx';
+import Event from "sap/ui/base/Event";
+import ColumnListItem from "sap/m/ColumnListItem";
+import JSONModel from "sap/ui/model/json/JSONModel";
 
 /**
  * @namespace com.logaligroup.employees.controller
  */
-export default class Main extends BaseController {
+export default class Master extends BaseController {
 
     /*eslint-disable @typescript-eslint/no-empty-function*/
     public onInit(): void {
 
     }
-
 
     public onSearchPress (event : FilterBar$SearchEvent ) : void {
         const controls = event.getParameter("selectionSet") as Control[];
@@ -66,7 +67,6 @@ export default class Main extends BaseController {
 
         this.applyFilters([]);
     }
-
 
     public onDownloadPress () : void {
 			// --- PASO A: OBTENER LOS DATOS DE LA TABLA ---
@@ -115,5 +115,20 @@ export default class Main extends BaseController {
 			// 4. Descargar el archivo.
 			// `writeFile` genera el fichero .xlsx y activa la descarga en el navegador.
 			XLSX.writeFile(oWorkBook, "Listado de Empleados.xlsx");
+    }
+
+    public onNavToDetails (event : Event) : void {
+
+        let item = event.getSource() as ColumnListItem;
+        let bindingContext = item.getBindingContext("employees");
+        let id = bindingContext.getProperty("EmployeeID");
+
+        let viewModel = this.getModel("view") as JSONModel;
+        viewModel.setProperty("/layout","TwoColumnsMidExpanded");
+
+        let router = this.getRouter();
+        router.navTo("RouteDetails", {
+            id:  id
+        });
     }
 }
