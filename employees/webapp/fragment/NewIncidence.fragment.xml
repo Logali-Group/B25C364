@@ -1,0 +1,49 @@
+<core:FragmentDefinition
+                xmlns="sap.m"
+                xmlns:core="sap.ui.core">
+
+    <Panel class="sapUiSmallMarginBottom">
+
+        <headerToolbar>
+            <Toolbar>
+                <core:Icon src="{= 
+                    ${form>Type} === '0'? 'accept' :
+                    ${form>Type} === '1'? 'alert' :
+                    ${form>Type} === '2'? 'decline' : ''
+                }"/>
+                <Title text="{i18n>incidence} ({form>Index})"/>
+            </Toolbar>
+        </headerToolbar>
+
+        <content>
+
+            <HBox>
+
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="{i18n>date}:"/>
+                    <DatePicker value="{forn>CreationDate}"/>                
+                </VBox>
+
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="{i18n>reason}:"/>
+                    <TextArea value="{forn>Reason}"/>                
+                </VBox>
+
+                <VBox>
+                    <Text text="{i18n>type}:"/>
+                    <Select selectedKey="{form>Type}">
+                        <core:Item key="-1" text="{i18n>empty}"/>
+                        <core:Item key="0" text="{i18n>incidenceCorrect}"/>
+                        <core:Item key="1" text="{i18n>incidencePending}"/>
+                        <core:Item key="2" text="{i18n>incidenceError}"/>
+                    </Select>
+                </VBox>
+            
+            </HBox>
+            
+        </content>
+    
+    </Panel>
+
+
+</core:FragmentDefinition>

@@ -72,7 +72,7 @@
             <f:content>
 
                 <Table id="table"
-                        items="{employees>/Employees}">
+                        items="{northwind>/Employees}">
 
 
                     <headerToolbar>
@@ -120,10 +120,10 @@
 
                             <cells>
 
-                                <ObjectIdentifier title="{employees>EmployeeID}" text="{employees>FirstName} {employees>LastName}"/>
-                                <Text text="{employees>Country}"/>
-                                <Text text="{employees>City}"/>
-                                <Text text="{employees>PostalCode}"/>
+                                <ObjectIdentifier title="{northwind>EmployeeID}" text="{northwind>FirstName} {northwind>LastName}"/>
+                                <Text text="{northwind>Country}"/>
+                                <Text text="{northwind>City}"/>
+                                <Text text="{northwind>PostalCode}"/>
                             
                             </cells>
                         

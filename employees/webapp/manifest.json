@@ -14,6 +14,25 @@
       "id": "@sap/generator-fiori:basic",
       "version": "1.18.1",
       "toolsId": "1b4d350e-3e8f-4940-bceb-66b95ed660cd"
+    },
+    "dataSources": {
+      "myservice": {
+        "type": "OData",
+        "uri": "/v2/northwind/northwind.svc",
+        "settings": {
+          "localUri": "localService/myservice/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "YSAPUI5_SRV_01": {
+        "uri": "/sap/opu/odata/sap/YSAPUI5_SRV_01/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/YSAPUI5_SRV_01/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
     }
   },
   "sap.ui": {
@@ -59,6 +78,18 @@
       "countries": {
         "type": "sap.ui.model.json.JSONModel",
         "uri": "model/Countries.json"
+      },
+      "northwind": {
+        "dataSource": "myservice",
+        "preload": true,
+        "settings": {}
+      },
+      "zincidence": {
+        "dataSource": "YSAPUI5_SRV_01",
+        "preload": true,
+        "settings": {
+          
+        }
       }
     },
     "resources": {
@@ -98,7 +129,7 @@
       "targets": {
         "FCLContainer": {
           "name": "Container"
-        } ,
+        },
         "TargetMaster": {
           "parent": "FCLContainer",
           "controlAggregation": "beginColumnPages",

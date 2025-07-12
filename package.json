@@ -11,5 +11,8 @@
   "devDependencies": {
     "mbt": "^1.2.29",
     "rimraf": "^5.0.5"
+  },
+  "dependencies": {
+    "@sap-ux/ui5-middleware-fe-mockserver": "^2.2.99"
   }
 }

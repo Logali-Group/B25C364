@@ -120,8 +120,9 @@ export default class Master extends BaseController {
     public onNavToDetails (event : Event) : void {
 
         let item = event.getSource() as ColumnListItem;
-        let bindingContext = item.getBindingContext("employees");
+        let bindingContext = item.getBindingContext("northwind");
         let id = bindingContext.getProperty("EmployeeID");
+        console.log(bindingContext.getPath());
 
         let viewModel = this.getModel("view") as JSONModel;
         viewModel.setProperty("/layout","TwoColumnsMidExpanded");
