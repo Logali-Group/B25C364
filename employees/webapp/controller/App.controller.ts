@@ -18,4 +18,5 @@ export default class App extends BaseController {
         const model = new JSONModel(data);
         this.setModel(model, "view");
     }
+
 }
