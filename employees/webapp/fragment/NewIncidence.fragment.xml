@@ -17,6 +17,10 @@
                         icon="sap-icon://save"
                         type="Emphasized"
                         press="onSavePress"/>
+                <Button
+                        icon="sap-icon://delete"
+                        type="Reject"
+                        press="onDeletePress"/>
             </Toolbar>
         </headerToolbar>
 
@@ -26,17 +30,20 @@
 
                 <VBox class="sapUiSmallMarginEnd">
                     <Text text="{i18n>date}:"/>
-                    <DatePicker dateValue="{form>CreationDate}"/>
+                    <DatePicker dateValue="{form>CreationDate}"
+                                change="updateIncidenceCreationDate"/>
                 </VBox>
 
                 <VBox class="sapUiSmallMarginEnd">
                     <Text text="{i18n>reason}:"/>
-                    <TextArea value="{form>Reason}"/>                
+                    <TextArea value="{form>Reason}"
+                        liveChange="updateIncidenceReason"/>                
                 </VBox>
 
                 <VBox>
                     <Text text="{i18n>type}:"/>
-                    <Select selectedKey="{form>Type}">
+                    <Select selectedKey="{form>Type}"
+                            change="updateIncidenceType">
                         <core:Item key="-1" text="{i18n>empty}"/>
                         <core:Item key="0" text="{i18n>incidenceCorrect}"/>
                         <core:Item key="1" text="{i18n>incidencePending}"/>

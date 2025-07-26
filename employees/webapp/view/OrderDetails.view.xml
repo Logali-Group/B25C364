@@ -1,0 +1,24 @@
+<mvc:View   controllerName="com.logaligroup.employees.controller.OrderDetails"
+            xmlns="sap.m"
+            xmlns:uxap="sap.uxap"
+            xmlns:mvc="sap.ui.core.mvc">
+
+
+        <uxap:ObjectPageLayout>
+
+                <uxap:headerTitle>
+                
+                </uxap:headerTitle>
+
+                <uxap:headerContent>
+
+                </uxap:headerContent>
+
+                <uxap:sections>
+                
+                </uxap:sections>
+
+        </uxap:ObjectPageLayout>
+
+
+</mvc:View>

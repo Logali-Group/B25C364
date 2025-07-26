@@ -30,67 +30,112 @@ export default class Utils {
     }
 
 
-    public async crud (action : string, object: JSONModel) : Promise<void> {
+    public async crud (action : string, object: JSONModel) : Promise<void | ODataListBinding> {
         const i18n = this.resourceModel;
 
-        MessageBox.confirm(i18n.getText("question"), {
-            actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
-            emphasizedAction: MessageBox.Action.OK,
-            onClose: async (sAction : string) => {
-                if (sAction === "OK") {
-                    switch (action) {
-                        case 'create': await this._create(object);
-                        case 'update': await this._update();
-                        case 'delete': await this._delete();
+        return new Promise((resolve,reject)=> {
+
+            MessageBox.confirm(i18n.getText("question"), {
+                actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+                emphasizedAction: MessageBox.Action.OK,
+                onClose: async (sAction : string) => {
+                    if (sAction === "OK") {
+                        switch (action) {
+                            case 'create': resolve(await this._create(object)); break;
+                            case 'update': resolve(await this._update(object)); break;
+                            case 'delete': resolve(await this._delete(object)); break;
+                        }
                     }
                 }
-            }
+            });
         });
+
     }
 
-    public async read (object? : JSONModel) : Promise<void | ODataListBinding> {
+    public async read (object? : JSONModel) : Promise< void | ODataListBinding> {
         const model = this.model;
         const path = object?.getProperty("/path");
+        const pathTemp = "/IncidentsSet";
         const filters = object?.getProperty("/filters");
         const resourceBundle = this.resourceModel;
 
         return new Promise((resolve,reject) => {
-            model.read(path, {
+            model.read(pathTemp, {
                 filters: filters,
                 success: (results : ODataListBinding) => {
                     resolve(results);
                 },
                 error: () => {
-                    MessageBox.error(resourceBundle.getText("error"));
+                    //MessageBox.error(resourceBundle.getText("error"));
                     reject();
                 }
             });
         });
     }
 
-    private async _create (object : JSONModel) : Promise<void> {
+    private async _create (object : JSONModel) : Promise<void | ODataListBinding> {
         const odataModel = this.model;
         const path = object.getProperty("/path");
         const body = object.getProperty("/body");
         const resourceBundle = this.resourceModel;
 
-        console.log(object.getData());
-
-        odataModel.create(path,body, {
-            success: () => {
-                MessageBox.success(resourceBundle.getText("success"));
-            },
-            error: () => {
-                MessageBox.error(resourceBundle.getText("error"));
-            }
+        return new Promise( async (resolve,reject) => {
+            odataModel.create(path,body, {
+                success: async () => {
+                    MessageBox.success(resourceBundle.getText("success"));
+                    resolve(await this.read(object));
+                },
+                error: () => {
+                    MessageBox.error(resourceBundle.getText("error"));
+                    resolve();
+                }
+            });
         });
+
+
     }
 
-    private async _update () : Promise<void> {
-        
+    private async _update (object? : JSONModel) : Promise<void | ODataListBinding> {
+        const model = this.model;
+        const path = object?.getProperty("/path");
+        const body = object?.getProperty("/body");
+        const resourceBundle = this.resourceModel;
+
+
+        return new Promise((resolve, reject)=> {
+            model.update(path, body, {
+                success: async () => {
+                    MessageBox.success(resourceBundle.getText("success"));
+                    resolve(await this.read(object));
+                },
+                error : () => {
+                    MessageBox.success(resourceBundle.getText("error"));
+                    reject();
+                }
+            });  
+        });
+
+
     }
 
-    private async _delete () : Promise<void> {
+    private async _delete (object : JSONModel) : Promise<void | ODataListBinding> {
+        const model = this.model;
+        const path = object?.getProperty("/path");
+        const resourceBundle = this.resourceModel;
+
+        return new Promise((resolve, reject)=> {
+            model.remove(path, {
+                success: async () => {
+                    MessageBox.success(resourceBundle.getText("success"));
+                    resolve(await this.read(object));
+                },
+                error : () => {
+                    MessageBox.success(resourceBundle.getText("error"));
+                    reject();
+                }
+            });
+        });
+
 
     }
 }

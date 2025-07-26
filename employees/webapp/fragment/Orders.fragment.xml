@@ -3,7 +3,8 @@
                     xmlns:c="sap.ui.core">
 
         <Table
-                items="{northwind>Orders}">
+                items="{northwind>Orders}"
+                growing="true">
 
             <columns>
 
@@ -29,7 +30,9 @@
 
             <items>
 
-                <ColumnListItem>
+                <ColumnListItem
+                            type="Navigation"
+                            press="onNavToOrderDetails">
                 
                     <cells>
 

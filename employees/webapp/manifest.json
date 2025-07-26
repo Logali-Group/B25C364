@@ -88,6 +88,8 @@
         "dataSource": "YSAPUI5_SRV_01",
         "preload": true,
         "settings": {
+          "useBatch": false,
+          "defaultUpdateMethod":"PUT"
         }
       }
     },
@@ -123,6 +125,15 @@
             "TargetMaster",
             "TargetDetails"
           ]
+        },
+        {
+          "name":"RouteOrderDeails",
+          "pattern":"Employees(ID={EmployeeID})/Order(ID={OrderID})",
+          "target": [
+            "TargetMaster",
+            "TargetDetails",
+            "TargetOrderDetails"
+          ]
         }
       ],
       "targets": {
@@ -140,6 +151,12 @@
           "controlAggregation": "midColumnPages",
           "controlId": "container",
           "name": "Details"
+        },
+        "TargetOrderDetails": {
+          "parent":"FCLContainer",
+          "controlAggregation": "endColumnPages",
+          "controlId":"container",
+          "name":"OrderDetails"
         }
       }
     },
