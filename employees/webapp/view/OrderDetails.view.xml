@@ -1,22 +1,150 @@
 <mvc:View   controllerName="com.logaligroup.employees.controller.OrderDetails"
             xmlns="sap.m"
             xmlns:uxap="sap.uxap"
-            xmlns:mvc="sap.ui.core.mvc">
+            xmlns:mvc="sap.ui.core.mvc"
+            xmlns:upload="sap.m.upload"
+            xmlns:signature="com.logaligroup.employees.control">
 
 
         <uxap:ObjectPageLayout>
 
                 <uxap:headerTitle>
+
+                        <uxap:ObjectPageDynamicHeaderTitle>
+
+                                <uxap:expandedHeading>
+                                        <Title text="{northwind>CustomerID}"/>
+                                </uxap:expandedHeading>
+
+                                <uxap:expandedContent>
+                                        <Text text="{northwind>OrderID}"/>
+                                </uxap:expandedContent>
+                        
+                        </uxap:ObjectPageDynamicHeaderTitle>
                 
                 </uxap:headerTitle>
 
                 <uxap:headerContent>
+                        <FlexBox justifyContent="SpaceBetween">
 
+                                <HBox class="sapUiSmallMarginEnd">
+
+                                        <VBox>
+                                                <Label text="{i18n>orderDate}:" class="boldElement"/>
+                                                <Text text="{
+                                                        path: 'northwind>OrderDate',
+                                                        type: 'sap.ui.model.type.Date'
+                                                }"/>
+                                        </VBox>
+                                
+                                </HBox>
+                        
+                                <HBox class="sapUiSmallMarginEnd">
+
+                                        <VBox>
+                                                <Label text="{i18n>freight}:" class="boldElement"/>
+                                                <Text text="{northwind>Freight}"/>
+                                        </VBox>
+                                
+                                </HBox>
+                        
+                                <HBox class="sapUiSmallMarginEnd">
+
+                                        <VBox>
+                                                <Label text="{i18n>shipAddress}:" class="boldElement"/>
+                                                <Text text="{northwind>ShipAddress}"/>
+                                        </VBox>
+                                
+                                </HBox>
+                        
+                        </FlexBox>
                 </uxap:headerContent>
 
                 <uxap:sections>
-                
+
+                        <uxap:ObjectPageSection title="{i18n>signature}">
+
+                                <uxap:subSections>
+
+                                        <uxap:ObjectPageSubSection>
+                                        
+                                                <uxap:blocks>
+
+                                                        <FlexBox
+                                                                width="100%"
+                                                                alignItems="Center"
+                                                                justifyContent="Center"
+                                                                direction="Column">
+
+                                                                <FlexBox width="300px"
+                                                                        height="150px">
+                                                                        <signature:Signature 
+                                                                                id="signature"/>
+                                                                </FlexBox>
+
+                                                                <HBox class="sapUiTinyMarginTop"
+                                                                        justifyContent="End"
+                                                                        width="302px">
+
+                                                                        <Button
+                                                                                class="sapUiSmallMarginEnd"
+                                                                                text="{i18n>save}"
+                                                                                tooltip="{i18n>save}"
+                                                                                type="Accept"
+                                                                                press="onSaveSignature"
+                                                                                width="4rem"/>
+
+                                                                        <Button
+                                                                                class="sapUiSmallMarginEnd"
+                                                                                text="{i18n>clear}"
+                                                                                tooltip="{i18n>clear}"
+                                                                                type="Reject"
+                                                                                press="onClearSignature"
+                                                                                width="4rem"/>
+
+                                                                        <Button
+                                                                                class="sapUiSmallMarginEnd"
+                                                                                text="{i18n>refresh}"
+                                                                                tooltip="{i18n>refresh}"
+                                                                                type="Accept"
+                                                                                press="onRefreshPress"
+                                                                                width="4rem"/>
+
+                                                                </HBox>
+                                                        
+                                                        </FlexBox>
+                                                
+                                                </uxap:blocks>
+                                        
+                                        </uxap:ObjectPageSubSection>
+                                
+                                </uxap:subSections>
+                        
+                        </uxap:ObjectPageSection>
+
+                        <uxap:ObjectPageSection title="{Attachments}">
+
+                                <uxap:subSections>
+
+                                        <uxap:ObjectPageSubSection>
+
+                                                <uxap:blocks>
+
+                                                        <upload:UploadSet id="attachments"/>
+
+                                                </uxap:blocks>
+                                        
+                                        </uxap:ObjectPageSubSection>
+                                
+                                </uxap:subSections>
+                        
+                        </uxap:ObjectPageSection>
+
                 </uxap:sections>
+
+                <uxap:footer>
+                
+                </uxap:footer>
 
         </uxap:ObjectPageLayout>
 

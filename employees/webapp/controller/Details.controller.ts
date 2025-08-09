@@ -51,6 +51,12 @@ export default class Container extends BaseController {
             events: {
                 change: () => {
                     this.read();
+                },
+                dataRequest: () => {
+                    view.setBusy(true);
+                },
+                dataReceived : () => {
+                    view.setBusy(false);
                 }
             }
         });

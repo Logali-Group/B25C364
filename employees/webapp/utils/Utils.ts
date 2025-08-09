@@ -55,12 +55,14 @@ export default class Utils {
     public async read (object? : JSONModel) : Promise< void | ODataListBinding> {
         const model = this.model;
         const path = object?.getProperty("/path");
-        const pathTemp = "/IncidentsSet";
+        //const pathTemp = "/IncidentsSet";
         const filters = object?.getProperty("/filters");
         const resourceBundle = this.resourceModel;
 
+        console.log("Estoy buscando la firma");
+
         return new Promise((resolve,reject) => {
-            model.read(pathTemp, {
+            model.read(path, {
                 filters: filters,
                 success: (results : ODataListBinding) => {
                     resolve(results);
@@ -84,6 +86,7 @@ export default class Utils {
                 success: async () => {
                     MessageBox.success(resourceBundle.getText("success"));
                     resolve(await this.read(object));
+                    //this.refresh();
                 },
                 error: () => {
                     MessageBox.error(resourceBundle.getText("error"));

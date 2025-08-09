@@ -72,7 +72,9 @@
             <f:content>
 
                 <Table id="table"
-                        items="{northwind>/Employees}">
+                        items="{
+                            path: 'northwind>/Employees'
+                        }">
 
 
                     <headerToolbar>
