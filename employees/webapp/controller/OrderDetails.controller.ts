@@ -7,6 +7,11 @@ import MessageBox from "sap/m/MessageBox";
 import Utils from "../utils/Utils";
 import JSONModel from "sap/ui/model/json/JSONModel";
 import ODataListBinding from "sap/ui/model/odata/v2/ODataListBinding";
+import UploadSet, { UploadSet$AfterItemRemovedEvent, UploadSet$BeforeUploadStartsEvent, UploadSet$UploadCompletedEvent } from "sap/m/upload/UploadSet";
+import UploadSetItem, { UploadSetItem$OpenPressedEvent } from "sap/m/upload/UploadSetItem";
+import ODataModel from "sap/ui/model/odata/v2/ODataModel";
+import Item from "sap/ui/core/Item";
+import Filter from "sap/ui/model/Filter";
 
 
 /**
@@ -25,6 +30,7 @@ export default class OrderDetails extends BaseController {
         const employeeId = args.EmployeeID;
         const orderId = args.OrderID;
         const view = this.getView() as View;
+        const signature = this.byId("signature") as Signature;
 
 
         view.bindElement({
@@ -32,7 +38,9 @@ export default class OrderDetails extends BaseController {
             model: 'northwind',
             events: {
                 change: () =>{
+                    signature.clear();
                     this.read();
+                    this.searchFiles();
                 } ,
                 dataRequest: () => {
                     view.setBusy(true);
@@ -110,5 +118,99 @@ export default class OrderDetails extends BaseController {
     public onRefreshPress () : void {
         this.read();
     }
+
+
+    public onBeforeUploadStarts (event : UploadSet$BeforeUploadStartsEvent) : void {
+        let item = event.getParameter("item") as UploadSetItem,
+            bindingContext = this.getView()?.getBindingContext("northwind") as Context,
+            model = this.getOwnerComponent().getModel("zincidence") as ODataModel,
+            utils = new Utils(this),
+            sOrderId = bindingContext.getProperty("OrderID"),
+            sSapId = utils.getEmail(),
+            sEmployeeId = bindingContext.getProperty("EmployeeID"),
+            fileName = item?.getFileName(),
+            token = model.getSecurityToken(),
+            slug = `${sOrderId};${sSapId};${sEmployeeId};${fileName}`;
+
+            let customHeaderToken = new Item({
+                key: 'x-csrf-token',
+                text: token
+            });
+
+            let customHeaderSlug = new Item({
+                key: 'slug',
+                text: slug
+            });
+
+            item.addHeaderField(customHeaderToken);
+            item.addHeaderField(customHeaderSlug);
+    }
+
+
+    public onUploadCompleted (event: UploadSet$UploadCompletedEvent) : void {
+        let uploadSet = event.getSource(); //this.byId("attachments")
+        uploadSet.getBinding("items")?.refresh();
+    }
+
+    private searchFiles () : void {
+        let bindingContext = this.getView()?.getBindingContext("northwind") as Context,            
+            utils = new Utils(this),
+            sOrderId = bindingContext.getProperty("OrderID"),
+            sSapId = utils.getEmail(),
+            sEmployeeId = bindingContext.getProperty("EmployeeID");
+
+        let uploadSet = this.byId("attachments") as UploadSet;
+
+            uploadSet.bindAggregation("items", {
+                path: 'zincidence>/FilesSet',
+                filters:[
+                    new Filter("OrderId","EQ", sOrderId),
+                    new Filter("SapId","EQ",sSapId),
+                    new Filter("EmployeeId","EQ", sEmployeeId)
+                ],
+                template: new UploadSetItem({
+                    fileName: "{zincidence>FileName}",
+                    mediaType: "{zincidence>MimeType}",
+                    visibleEdit: false,
+                    url: "/",
+                    openPressed: this.onOpenPressed.bind(this)
+                })
+            });
+    }
+
+    public async onAfterItemRemoved (event: UploadSet$AfterItemRemovedEvent) : Promise<void> {
+        let item = event.getParameter("item") as UploadSetItem,
+            bindingContext = item.getBindingContext("zincidence") as Context, 
+            path = bindingContext.getPath(),
+            body = {
+                path: path
+            };
+        let utils = new Utils(this);
+        await utils.crud('delete', new JSONModel(body));
+        item.getBinding("items").refresh();
+    }
+
+    private onOpenPressed (event: UploadSetItem$OpenPressedEvent) : void {
+        let item = event.getSource() as UploadSetItem,
+            bindingContext = item.getBindingContext("zincidence") as Context,
+            path = bindingContext.getPath(),
+            url = "/comlogaligroupemployees/sap/opu/odata/sap/YSAPUI5_SRV_01"+path+"/$value";
+            console.log(url);
+            item.setUrl(url);
+    }
+
+    public onNavToBack () : void {
+        let bindingContext = this.getView().getBindingContext("northwind") as Context,
+            sEmployeeId = bindingContext.getProperty("EmployeeID");
+        let view = this.getView().getModel("view")as JSONModel;
+        let router = this.getRouter();
+
+        view.setProperty("/layout","TwoColumnsMidExpanded");
+
+        router.navTo("RouteDetails", {
+            id: sEmployeeId
+        });
+
+    };
 
 }

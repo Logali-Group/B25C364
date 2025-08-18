@@ -3,14 +3,22 @@
   "authenticationMethod": "route",
   "routes": [
     {
-      "source": "^/resources/(.*)$",
-      "target": "/resources/$1",
+      "source": "^/v2/northwind/northwind.svc/(.*)$",
+      "target": "/v2/northwind/northwind.svc/$1",
+      "destination": "Northwind",
       "authenticationType": "none",
-      "destination": "ui5"
+      "csrfProtection": false
     },
     {
-      "source": "^/test-resources/(.*)$",
-      "target": "/test-resources/$1",
+      "source": "^/sap/opu/odata/sap/YSAPUI5_SRV_01/(.*)$",
+      "target": "/sap/opu/odata/sap/YSAPUI5_SRV_01/$1",
+      "destination": "ERP13",
+      "authenticationType": "none",
+      "csrfProtection": false
+    },
+    {
+      "source": "^/resources/(.*)$",
+      "target": "/resources/$1",
       "authenticationType": "none",
       "destination": "ui5"
     },

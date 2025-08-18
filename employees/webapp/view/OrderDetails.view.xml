@@ -19,6 +19,14 @@
                                 <uxap:expandedContent>
                                         <Text text="{northwind>OrderID}"/>
                                 </uxap:expandedContent>
+
+                                <uxap:actions>
+                                        <Button
+                                                id="close"
+                                                icon="sap-icon://decline"
+                                                type="Emphasized"
+                                                press="onNavToBack"/>
+                                </uxap:actions>
                         
                         </uxap:ObjectPageDynamicHeaderTitle>
                 
@@ -130,7 +138,37 @@
 
                                                 <uxap:blocks>
 
-                                                        <upload:UploadSet id="attachments"/>
+                                                        <upload:UploadSet id="attachments"
+                                                                        uploadUrl="/comlogaligroupemployees/sap/opu/odata/sap/YSAPUI5_SRV_01/FilesSet"
+                                                                        beforeUploadStarts="onBeforeUploadStarts"
+                                                                        uploadCompleted="onUploadCompleted"
+                                                                        afterItemRemoved="onAfterItemRemoved">
+                                                                        <!-- items="{
+                                                                                path: 'zincidence>/FilesSet',
+                                                                                filters:[
+                                                                                        {
+                                                                                                path:'OrderId',
+                                                                                                operator: 'EQ',
+                                                                                                value1: '{OrderId}'
+                                                                                        },
+                                                                                        {
+                                                                                                path:'SapId',
+                                                                                                operator: 'EQ',
+                                                                                                value1: '{SapId}'
+                                                                                        },
+                                                                                        {
+                                                                                                path:'EmployeeId',
+                                                                                                operator: 'EQ',
+                                                                                                value1: '{EmployeeId}'
+                                                                                        }
+                                                                                ]
+                                                                        }"> -->
+                                                                <!-- <upload:items>
+                                                                        <upload:UploadSetItem 
+                                                                                                fileName="{FileName}"
+                                                                                                mediaType="{MimeType}"/>
+                                                                </upload:items> -->
+                                                        </upload:UploadSet>
 
                                                 </uxap:blocks>
                                         
